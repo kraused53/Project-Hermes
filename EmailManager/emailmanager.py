@@ -1,17 +1,21 @@
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from email.mime.image import MIMEImage
-from re import T
-import smtplib, ssl
+import smtplib
 import EMAIL_KEYS
 
 
 # ----------------------------------------------------------------------------
 """
-    Use the requests library to make an API call to Open Weather. If the 
-        request is successful, return the requestd data as a JSON data set.
-        If the request fails, return None data type. The None response is to
-        be handled by the caller of the function
+    Use the stmplib package to send a basic text email
+
+    Inputs:
+        email_text -> Text body of email to send
+        subject -> Text subject line for email
+        send_to -> List containing all of the recipients of the email
+    
+    Output:
+        Print Success/Failure to terminal
 """
 def send_text_email(email_text, subject, send_to):
     send_from = EMAIL_KEYS.HERMES_EMAIL_USER
@@ -50,4 +54,4 @@ if __name__ == '__main__':
 
     subject = 'Testing My Fancy New Email Service!'
 
-    send_text_email(txt, subject, EMAIL_KEYS.RECIPIENTS)
+    send_text_email(txt, subject, [EMAIL_KEYS.RECIPIENTS[0]])
