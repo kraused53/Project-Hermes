@@ -1,7 +1,5 @@
 # Import Hermes submodules
-from .EmailManager.emailmanager import send_text_email
-from .WeatherManager.weatherbot import get_weather_json
-from .WeatherManager.weatherbot import convert_time
+import weatherbot
 
 
 # ----------------------------------------------------------------------------
@@ -25,11 +23,11 @@ def generate_email_text(data):
             # Format available items
             # Format time data
             if 'dt' in data['current']:
-                email_text += '\tCurrent Time:\t'+convert_time(data['current']['dt'], data['timezone_offset'], True)[11:]+'\n'
+                email_text += '\tCurrent Time:\t'+weatherbot.convert_time(data['current']['dt'], data['timezone_offset'], True)[11:]+'\n'
             if 'sunrise' in data['current']:
-                email_text += '\tSunrise:\t'+convert_time(data['current']['sunrise'], data['timezone_offset'], True)[11:]+'\n'
+                email_text += '\tSunrise:\t'+weatherbot.convert_time(data['current']['sunrise'], data['timezone_offset'], True)[11:]+'\n'
             if 'sunset' in data['current']:
-                email_text += '\tSunset:\t\t'+convert_time(data['current']['sunset'], data['timezone_offset'], True)[11:]+'\n'
+                email_text += '\tSunset:\t\t'+weatherbot.convert_time(data['current']['sunset'], data['timezone_offset'], True)[11:]+'\n'
             
             email_text += '\n'
 
@@ -59,4 +57,4 @@ def generate_email_text(data):
 
 
 if __name__ == '__main__':
-    print(generate_email_text(get_weather_json()))
+    print(generate_email_text(weatherbot.get_weather_json()))
