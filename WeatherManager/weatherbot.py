@@ -1,4 +1,4 @@
-from OPEN_WEATHER_KEYS import OPEN_WEATHER_API_KEY
+import OPEN_WEATHER_KEYS
 from requests import get, exceptions
 from datetime import datetime
 
@@ -47,7 +47,7 @@ def get_weather_json(lat = '40.7128', lon = '-74.0030', exclusions = ''):
         'lat=' + str(lat) + '&lon=' + str(lon) +\
         '&exclude=' + exclusions +\
         '&units=imperial' +\
-        '&appid=' + OPEN_WEATHER_API_KEY
+        '&appid=' + OPEN_WEATHER_KEYS.OPEN_WEATHER_API_KEY
 
 #    print(API_URL)
 
@@ -55,7 +55,7 @@ def get_weather_json(lat = '40.7128', lon = '-74.0030', exclusions = ''):
         response = get(API_URL)
     except exceptions.RequestException as e:  # This is the correct syntax
         raise SystemExit(e)
-    
+
     # Check to make sure response.get() worked
     if response is not None:
         # Check for valid response
@@ -75,7 +75,7 @@ def get_weather_json(lat = '40.7128', lon = '-74.0030', exclusions = ''):
         Hermes Project.
 """
 if __name__ == '__main__':
-    weather_json = get_weather_json()
+    weather_json = get_weather_json(OPEN_WEATHER_KEYS.lat, OPEN_WEATHER_KEYS.lon)
 
     if weather_json is not None:
         if 'current' in weather_json:
