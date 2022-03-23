@@ -127,3 +127,10 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# API Keys
+OPEN_WEATHER_KEYS.py
+GMAIL_KEYS.py
+
+# Ignore VS-Code IDE specific items
+.vscode
