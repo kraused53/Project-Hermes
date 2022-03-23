@@ -1,6 +1,7 @@
 # Import Hermes submodules
 import weatherbot
-
+import emailmanager
+import EMAIL_KEYS
 
 # ----------------------------------------------------------------------------
 """
@@ -57,4 +58,8 @@ def generate_email_text(data):
 
 
 if __name__ == '__main__':
-    print(generate_email_text(weatherbot.get_weather_json()))
+
+    email_text = generate_email_text(weatherbot.get_weather_json())
+    subject = "Today's Weather Forecast."
+
+    emailmanager.send_text_email(email_text, subject, EMAIL_KEYS.RECIPIENTS)
