@@ -130,7 +130,7 @@ dmypy.json
 
 # API Keys
 OPEN_WEATHER_KEYS.py
-GMAIL_KEYS.py
+EMAIL_KEYS.py
 
 # Ignore VS-Code IDE specific items
 .vscode
