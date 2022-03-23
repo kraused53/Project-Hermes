@@ -1,0 +1,1 @@
+from .EmailManager.emailmanager import send_text_email
