@@ -10,10 +10,10 @@ from datetime import datetime
         If the request fails, return None data type. The None response is to
         be handled by the caller of the function
 """
-def get_weather_json(lat, lon, exclusions = ''):
+def get_weather_json(lat = '40.7128', lon = '-74.0030', exclusions = ''):
 
     API_URL = 'https://api.openweathermap.org/data/2.5/onecall?' +\
-        'lat=' + lat + '&lon=' + lon +\
+        'lat=' + str(lat) + '&lon=' + str(lon) +\
         '&exclude=' + exclusions +\
         '&units=imperial' +\
         '&appid=' + OPEN_WEATHER_API_KEY
