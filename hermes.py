@@ -59,4 +59,4 @@ def generate_email_text(data):
 
 
 if __name__ == '__main__':
-    pass
+    print(generate_email_text(get_weather_json()))
