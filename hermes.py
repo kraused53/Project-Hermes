@@ -18,27 +18,25 @@ def generate_email_text(data):
     email_text = ''
 
     if data is not None:
+        email_text += 'Today\'s Weather Forecast for West Lafayette, IN\n\n'
+
         if 'current' in data:
-            email_text += 'Current Weather Forecast:\n\n'
+            email_text += 'It is currently:\n'
 
             # Format available items
             # Format time data
             if 'dt' in data['current']:
-                email_text += '\tCurrent Time:\t'+weatherbot.convert_time(data['current']['dt'], data['timezone_offset'], True)[11:]+'\n'
-            if 'sunrise' in data['current']:
-                email_text += '\tSunrise:\t'+weatherbot.convert_time(data['current']['sunrise'], data['timezone_offset'], True)[11:]+'\n'
-            if 'sunset' in data['current']:
-                email_text += '\tSunset:\t\t'+weatherbot.convert_time(data['current']['sunset'], data['timezone_offset'], True)[11:]+'\n'
+                email_text += '\tTime:\t'+weatherbot.convert_time(data['current']['dt'], data['timezone_offset'], True)[11:]+'\n'
             
             email_text += '\n'
 
             # Add temperature data
             if 'temp' in data['current']:
-                email_text += '\tCurrent Temp:\t'+str(data['current']['temp'])+' F'+'\n'
+                email_text += '\tTemperature:\t'+str(data['current']['temp'])+' °F'+'\n'
             if 'feels_like' in data['current']:
-                email_text += '\tFeels Like:\t'+str(data['current']['feels_like'])+' F'+'\n'
+                email_text += '\tFeels Like:\t'+str(data['current']['feels_like'])+' °F'+'\n'
             if 'dew_point' in data['current']:
-                email_text += '\tDew Point:\t'+str(data['current']['dew_point'])+' F'+'\n'
+                email_text += '\tDew Point:\t'+str(data['current']['dew_point'])+' °F'+'\n'
             if 'pressure' in data['current']:
                 email_text += '\tPressure:\t'+str(data['current']['pressure'])+' hPa'+'\n'
 
@@ -53,6 +51,40 @@ def generate_email_text(data):
                 email_text += '\tHumidity:\t'+str(data['current']['humidity'])+' %'+'\n'
             if 'visibility' in data['current']:
                 email_text += '\tVisibility:\t'+str(data['current']['visibility'])+' meters'+'\n'
+
+        if 'daily' in data:
+            email_text += '\nFor the rest of today:\n'
+
+            if 'sunrise' in data['daily'][0]:
+                email_text += '\tSunrise:\t'+weatherbot.convert_time(data['daily'][0]['sunrise'], data['timezone_offset'], True)[11:]+'\n'
+            if 'sunset' in data['daily'][0]:
+                email_text += '\tSunset:\t\t'+weatherbot.convert_time(data['daily'][0]['sunset'], data['timezone_offset'], True)[11:]+'\n'
+
+            if 'moonrise' in data['daily'][0]:
+                email_text += '\tMoonrise:\t'+weatherbot.convert_time(data['daily'][0]['moonrise'], data['timezone_offset'], True)[11:]+'\n'
+            if 'moonset' in data['daily'][0]:
+                email_text += '\tMoonset:\t'+weatherbot.convert_time(data['daily'][0]['moonset'], data['timezone_offset'], True)[11:]+'\n'
+            
+            email_text += '\n'
+
+            if 'temp' in data['daily'][0]:
+                if 'min' in data['daily'][0]['temp']:
+                    email_text += '\tMin Temp.:\t'+str(data['daily'][0]['temp']['min'])+' °F\n'
+                if 'max' in data['daily'][0]['temp']:
+                    email_text += '\tMax Temp.:\t'+str(data['daily'][0]['temp']['max'])+' °F\n'
+            
+            if 'weather' in data['daily'][0]:
+                if 'description' in data['daily'][0]['weather']:
+                    email_text += '\t'+str(data['daily'][0]['weather']['description']).capitalize()+'\n'
+
+            if 'alerts' in data['daily'][0]:
+                email_text += '\n\nWeather Alerts for Today:\n\n'
+
+                for a in data['daily'][0]['alerts']:
+                    email_text += str(a['event'])+'\n'
+                    email_text += '----------------------------------------\n'
+                    email_text += str(a['description']) + '\n\n'
+
     
     return email_text
 
